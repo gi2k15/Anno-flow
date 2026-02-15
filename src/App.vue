@@ -7,7 +7,8 @@ body {
 </style>
 
 <style scoped>
-.main-container {
+.main-containter {
+  margin: 0 auto;
   width: 80%;
 }
 </style>
@@ -15,6 +16,9 @@ body {
 <template>
   <div class="main-containter">
       <h1>Anno 117 Flow Calculator</h1>
+      <p>This app calculates how many of each build you need to construct based on the time
+        each one takes to make a product, so the chain is fully optimized.
+      </p>
   </div>
 </template>
 
