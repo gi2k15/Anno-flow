@@ -1,38 +1,60 @@
-# 117-Flow
+# Anno Flow Calculator
 
-This template should help get you started developing with Vue 3 in Vite.
+A small Vue 3 app that helps optimize production chains for **Anno** series.
 
-## Recommended IDE Setup
+You provide each industry/building and its production time (in seconds), and the app calculates the minimal building ratio needed to keep the chain balanced.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## What the project does
 
-## Recommended Browser Setup
+- Lets you add and remove buildings in a production chain
+- Accepts predefined times (`30`, `60`, `90`, `120`) or a custom value
+- Calculates an optimized flow ratio from all valid times
+- Shows the exact number of required buildings for each step
+- Supports reset to quickly start a new chain
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## How calculation works
 
-## Customize configuration
+The app converts all valid production times to numbers and computes the **greatest common divisor (GCD)** across them.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+For each building:
 
-## Project Setup
+`required buildings = building time / GCD(all times)`
+
+This produces the smallest whole-number ratio for the entire chain.
+
+## Tech stack
+
+- Vue 3 (Composition API + `<script setup>`)
+- Vite
+- pnpm
+
+## Getting started
+
+### Requirements
+
+- Node.js `^20.19.0` or `>=22.12.0`
+- pnpm
+
+### Install dependencies
 
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+### Run in development mode
 
 ```sh
 pnpm dev
 ```
 
-### Compile and Minify for Production
+### Build for production
 
 ```sh
 pnpm build
+```
+
+### Preview production build
+
+```sh
+pnpm preview
 ```
