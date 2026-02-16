@@ -1,7 +1,7 @@
 <style scoped>
 .container {
     display: flex;
-    justify-content: space-around;
+    align-items: flex-end;
     gap: 10px;
     border: 1px solid #fff;
     border-radius: 10px;
@@ -11,11 +11,44 @@
 .industry-container {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 0;
 }
 
 .radio-container {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
+}
+
+.remove-button {
+    width: 200px;
+    height: 2rem;
+    flex-shrink: 0;
+}
+
+#time-custom {
+    width: 120px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .radio-container {
+        gap: 8px;
+    }
+
+    #time-custom {
+        width: 100%;
+    }
+
+    .remove-button {
+        width: 100%;
+    }
 }
 </style>
 
@@ -55,7 +88,7 @@
                 >
             </div>
         </div>
-        <input type="button" value="Remove" @click="emit('remove')" style="width: 200px;">
+        <input type="button" class="remove-button" value="Remove" @click="emit('remove')">
     </div>
 </template>
 

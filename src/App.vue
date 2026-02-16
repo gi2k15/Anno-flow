@@ -9,7 +9,7 @@ body {
 <style scoped>
 .main-containter {
   margin: 0 auto;
-  width: 80%;
+  width: min(900px, 92%);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -24,6 +24,33 @@ body {
 input {
   height: 2rem;
 }
+
+.action-button {
+  width: fit-content;
+  min-width: 140px;
+}
+
+@media (max-width: 768px) {
+  .main-containter {
+    width: 94%;
+    gap: 12px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin: 0.5rem 0 0;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .action-button {
+    width: 100%;
+  }
+}
 </style>
 
 <template>
@@ -32,7 +59,7 @@ input {
     <p>This app calculates how many of each build you need to construct based on the time
       each one takes to make a product, so the chain is fully optimized.
     </p>
-    <input type="button" value="Add building" @click="addBuilding">
+    <input type="button" class="action-button" value="Add building" @click="addBuilding">
     <Building 
       v-for="(building, index) in listBuildings" 
       :key="index" 
@@ -52,7 +79,7 @@ input {
         </li>
       </ul>
     </div>
-    <input type="button" value="Reset" @click="resetBuildings">
+    <input type="button" class="action-button" value="Reset" @click="resetBuildings">
   </div>
 </template>
 
