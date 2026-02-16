@@ -73,12 +73,6 @@ function resetBuildings() {
   addBuilding()
 }
 
-const buildingObject = {
-  name: '',
-  time: '',
-}
-const listBuildings = ref([])
-
 function gcd(a, b) {
   let x = Math.abs(a)
   let y = Math.abs(b)
@@ -122,6 +116,12 @@ function calculateOptimizedBuildings(buildings) {
 }
 
 const optimizedBuildings = computed(() => calculateOptimizedBuildings(listBuildings.value))
+
+const buildingObject = {
+  name: '',
+  time: '',
+}
+const listBuildings = ref([])
 
 addBuilding()
 </script>
