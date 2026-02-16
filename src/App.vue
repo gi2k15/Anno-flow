@@ -15,12 +15,6 @@ body {
   gap: 10px;
 }
 
-.result-box {
-  border: 1px solid #fff;
-  border-radius: 10px;
-  padding: 1rem;
-}
-
 input {
   height: 2rem;
 }
