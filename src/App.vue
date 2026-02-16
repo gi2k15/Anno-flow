@@ -14,6 +14,12 @@ body {
   flex-direction: column;
   gap: 10px;
 }
+
+.result-box {
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 1rem;
+}
 </style>
 
 <template>
@@ -30,11 +36,23 @@ body {
       v-model:time="building.time"
       @remove="removeBuilding(index)">
     </Building>
+
+    <div class="result-box">
+      <h2>Optimized Flow</h2>
+      <p v-if="optimizedBuildings.length === 0">
+        Fill in valid production times to calculate.
+      </p>
+      <ul v-else>
+        <li v-for="item in optimizedBuildings" :key="item.id">
+          {{ item.name }}: {{ item.required }} building(s)
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import Building from './Building.vue'
 
 function addBuilding() {
@@ -47,9 +65,53 @@ function removeBuilding(index) {
 
 const buildingObject = {
   name: '',
-  time: null,
+  time: '',
 }
 const listBuildings = ref([])
+
+function gcd(a, b) {
+  let x = Math.abs(a)
+  let y = Math.abs(b)
+  while (y !== 0) {
+    const temp = y
+    y = x % y
+    x = temp
+  }
+  return x || 1
+}
+
+function gcdArray(values) {
+  return values.reduce((acc, value) => gcd(acc, value))
+}
+
+function isNaturalNumber(value) {
+  return Number.isInteger(value) && value > 0
+}
+
+function calculateOptimizedBuildings(buildings) {
+  const normalized = buildings
+    .map((building, index) => {
+      const time = Number(building.time)
+      return {
+        id: `${index}-${building.name || 'building'}`,
+        name: building.name?.trim() || `Building ${index + 1}`,
+        time
+      }
+    })
+    .filter((building) => isNaturalNumber(building.time))
+
+  if (normalized.length === 0) return []
+
+  const times = normalized.map((building) => building.time)
+  const ratioGcd = gcdArray(times)
+
+  return normalized.map((building, index) => ({
+    ...building,
+    required: times[index] / ratioGcd
+  }))
+}
+
+const optimizedBuildings = computed(() => calculateOptimizedBuildings(listBuildings.value))
 
 addBuilding()
 </script>

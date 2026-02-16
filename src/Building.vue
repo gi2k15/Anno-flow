@@ -3,6 +3,9 @@
     display: flex;
     justify-content: space-around;
     gap: 10px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 1rem;
 }
 
 .industry-container {
@@ -41,7 +44,15 @@
                     <input type="radio" name="time" class="time-radio" id="120" value="120" v-model="time">
                     120
                 </label>
-                <input type="number" id="time-custom" placeholder="Custom time" v-model="time">
+                <input
+                    type="number"
+                    id="time-custom"
+                    placeholder="Custom time"
+                    min="30"
+                    step="30"
+                    :value="time"
+                    @input="onCustomTimeInput"
+                >
             </div>
         </div>
         <input type="button" value="Remove" @click="emit('remove')">
@@ -52,4 +63,20 @@
 const industryName = defineModel('industryName')
 const time = defineModel('time')
 const emit = defineEmits(['remove'])
+
+function onCustomTimeInput(event) {
+    const rawValue = event.target.value
+    if (rawValue === '') {
+        time.value = ''
+        return
+    }
+
+    const parsed = Number(rawValue)
+    if (!Number.isInteger(parsed) || parsed < 1) {
+        time.value = ''
+        return
+    }
+
+    time.value = String(parsed)
+}
 </script>
