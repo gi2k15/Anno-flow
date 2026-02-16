@@ -55,7 +55,7 @@
                 >
             </div>
         </div>
-        <input type="button" value="Remove" @click="emit('remove')">
+        <input type="button" value="Remove" @click="emit('remove')" style="width: 200px;">
     </div>
 </template>
 

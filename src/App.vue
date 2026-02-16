@@ -20,6 +20,10 @@ body {
   border-radius: 10px;
   padding: 1rem;
 }
+
+input {
+  height: 2rem;
+}
 </style>
 
 <template>
@@ -28,7 +32,7 @@ body {
     <p>This app calculates how many of each build you need to construct based on the time
       each one takes to make a product, so the chain is fully optimized.
     </p>
-    <input type="button" value="Add building" @click="addBuilding" style="height: 2rem;">
+    <input type="button" value="Add building" @click="addBuilding">
     <Building 
       v-for="(building, index) in listBuildings" 
       :key="index" 
@@ -44,10 +48,11 @@ body {
       </p>
       <ul v-else>
         <li v-for="item in optimizedBuildings" :key="item.id">
-          {{ item.name }}: {{ item.required }} building(s)
+          {{ item.name }}: {{ item.required }} {{ item.required < 2 ? "building" : "buildings" }}
         </li>
       </ul>
     </div>
+    <input type="button" value="Reset" @click="resetBuildings">
   </div>
 </template>
 
@@ -61,6 +66,11 @@ function addBuilding() {
 
 function removeBuilding(index) {
   listBuildings.value.splice(index, 1)
+}
+
+function resetBuildings() {
+  listBuildings.value.length = 0
+  addBuilding()
 }
 
 const buildingObject = {
