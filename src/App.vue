@@ -27,7 +27,7 @@ input {
     <p>This app calculates how many of each build you need to construct based on the time
       each one takes to make a product, so the chain is fully optimized.
     </p>
-    <input type="button" value="Add building" @click="addBuilding">
+    <input type="button" value="Add building" @click="addBuilding(1)">
     <Building 
       v-for="(building, index) in listBuildings" 
       :key="index" 
