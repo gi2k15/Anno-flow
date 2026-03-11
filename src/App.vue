@@ -16,7 +16,8 @@ body {
 }
 
 input {
-  height: 2rem;
+  height: 3rem;
+  font-size: larger;
 }
 </style>
 
