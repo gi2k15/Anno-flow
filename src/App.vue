@@ -55,8 +55,10 @@ input {
 import { computed, ref } from 'vue'
 import Building from './Building.vue'
 
-function addBuilding() {
-  listBuildings.value.push({ ...buildingObject })
+function addBuilding(num = 2) {
+  for(let i = 0; i < num; i++) {
+    listBuildings.value.push({ ...buildingObject })
+  }
 }
 
 function removeBuilding(index) {
@@ -118,8 +120,5 @@ const buildingObject = {
 }
 const listBuildings = ref([])
 
-const numInitialBuildings = 2
-for(let i = 0; i < numInitialBuildings; i++) {
-  addBuilding()
-}
+addBuilding()
 </script>
