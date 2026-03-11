@@ -117,5 +117,8 @@ const buildingObject = {
 }
 const listBuildings = ref([])
 
-addBuilding()
+const numInitialBuildings = 2
+for(let i = 0; i < numInitialBuildings; i++) {
+  addBuilding()
+}
 </script>
