@@ -1,6 +1,6 @@
 <style>
 body {
-  background-color: rgb(19, 19, 19);
+  background-color: #4b411f;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: white;
 }
