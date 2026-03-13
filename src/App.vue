@@ -15,6 +15,10 @@ body {
   gap: 10px;
 }
 
+.result-text {
+  font-size: larger;
+}
+
 input {
   height: 3rem;
   font-size: larger;
@@ -36,13 +40,13 @@ input {
       @remove="removeBuilding(index)">
     </Building>
 
-    <div class="result-box">
+    <div>
       <h2>Optimized Flow</h2>
       <p v-if="optimizedBuildings.length === 0">
         Fill in valid production times to calculate.
       </p>
       <ul v-else>
-        <li v-for="item in optimizedBuildings" :key="item.id">
+        <li v-for="item in optimizedBuildings" :key="item.id" class="result-text">
           {{ item.name }}: {{ item.required }} {{ item.required < 2 ? "building" : "buildings" }}
         </li>
       </ul>
@@ -52,7 +56,7 @@ input {
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import Building from './Building.vue'
 
 function addBuilding(num = 2) {
@@ -111,6 +115,30 @@ function calculateOptimizedBuildings(buildings) {
     required: times[index] / ratioGcd
   }))
 }
+
+function handleKeydown(event) {
+  if (!event.ctrlKey) return
+  const key = event.key.toLowerCase()
+  if (key === 'd') {
+    event.preventDefault()
+    addBuilding(1)
+    return
+  }
+  if (key === 'r') {
+    event.preventDefault()
+    if (listBuildings.value.length > 0) {
+      removeBuilding(listBuildings.value.length - 1)
+    }
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+})
 
 const optimizedBuildings = computed(() => calculateOptimizedBuildings(listBuildings.value))
 
